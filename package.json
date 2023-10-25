@@ -1,0 +1,22 @@
+{
+  "name": "mealdeliveryrecommend",
+  "version": "1.0.0",
+  "description": "A real-time meal delivery application that provides personalized meal recommendations to users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://hounsounon-anselme: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@github.com/hounsounon-anselme/MealDeliveryRecommend.git"
+  },
+  "author": "Anselme HOUNSOUNON",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hounsounon-anselme/MealDeliveryRecommend/issues"
+  },
+  "homepage": "https://github.com/hounsounon-anselme/MealDeliveryRecommend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
