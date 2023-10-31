@@ -1,11 +1,16 @@
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
-//const { Sequelize, DataTypes } = require('sequelize');
-//const Sequelize = require('./sequelize');
 module.exports = {
     async up(queryInterface, Sequelize) {
+        /**
+         * Add altering commands here.
+         *
+         * Example:
+         * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+         */
         await queryInterface.createTable('users', {
-            id: {
+            ID: {
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
@@ -35,8 +40,20 @@ module.exports = {
 
             },
 
+            CountryPhoneCode: {
+                type: Sequelize.STRING, // Le type de données dépend de votre schéma de pays
+                allowNull: false,
+                references: {
+                    model: 'countries', // Référence à la table des pays
+                    key: 'PhoneCode', // Clé primaire de la table des pays
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+            },
+
+
             phone: {
-                type: DataTypes.STRING,
+                type: Sequelize.STRING,
                 allowNull: false,
                 unique: true,
             },
@@ -50,7 +67,15 @@ module.exports = {
             }
         });
     },
+
     async down(queryInterface, Sequelize) {
+        /**
+         * Add reverting commands here.
+         *
+         * Example:
+         * await queryInterface.dropTable('users');
+         */
         await queryInterface.dropTable('users');
+
     }
 };
