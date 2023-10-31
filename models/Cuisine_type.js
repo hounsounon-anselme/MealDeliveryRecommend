@@ -2,40 +2,41 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    class Arrondissement extends Model {
+    class Cuisine_type extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Arrondissement.belongsTo(models.Departement, {
-                foreignKey: 'departementID',
-                as: 'departement',
-            });
+            // associations 
         }
     }
 
-    Arrondissement.init({
+    Cuisine_type.init({
         ID: {
-            type: DataTypes.INTEGER,
+            type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
         name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        departementID: {
-            type: DataTypes.INTEGER,
+            type: Sequelize.STRING,
             allowNull: false,
         },
 
+        createdAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+        },
     }, {
         sequelize,
-        modelName: 'Arrondissement',
-        tableName: 'arrondissements',
+        modelName: 'Cuisine_type',
+        tableName: 'cuisine_types',
     });
 
-    return Arrondissement;
+    return Cuisine_type;
 };

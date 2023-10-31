@@ -7,30 +7,22 @@ module.exports = {
          * Add altering commands here.
          *
          * Example:
-         * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
+         * await queryInterface.createTable('locations', { id: Sequelize.INTEGER });
          */
-
-        await queryInterface.createTable('departements', {
+        await queryInterface.createTable('locations', {
             ID: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            name: {
-                type: Sequelize.STRING,
+            latitude: {
+                type: Sequelize.DECIMAL(10, 6),
                 allowNull: false,
             },
-            countryID: {
-                type: Sequelize.STRING,
+            longitude: {
+                type: Sequelize.DECIMAL(10, 6),
                 allowNull: false,
-                references: {
-                    model: 'countries',
-                    key: 'PhoneCode',
-                },
-                onUpdate: 'CASCADE',
-                onDelete: 'CASCADE',
             },
-
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false,
@@ -42,15 +34,14 @@ module.exports = {
         });
     },
 
-
-
     async down(queryInterface, Sequelize) {
         /**
          * Add reverting commands here.
          *
          * Example:
-         * await queryInterface.dropTable('users');
+         * await queryInterface.dropTable('locations');
          */
-        await queryInterface.dropTable('departements');
+        await queryInterface.dropTable('locations');
+
     }
 };

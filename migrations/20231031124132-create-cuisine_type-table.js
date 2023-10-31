@@ -9,8 +9,7 @@ module.exports = {
          * Example:
          * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
          */
-
-        await queryInterface.createTable('restaurants', {
+        await queryInterface.createTable('cuisine_types', {
             ID: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -20,32 +19,7 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            description: {
-                type: Sequelize.TEXT,
-            },
 
-            neighbordhoodID: {
-                type: Sequelize.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'neighborhoods',
-                    key: 'ID',
-                },
-            },
-
-            cuisineType: {
-                type: Sequelize.STRING,
-            },
-            averageRatings: {
-                type: Sequelize.FLOAT,
-            },
-            openingHours: {
-                type: Sequelize.STRING,
-            },
-
-            closingHours: {
-                type: Sequelize.STRING,
-            },
             createdAt: {
                 type: Sequelize.DATE,
                 allowNull: false,
@@ -64,6 +38,7 @@ module.exports = {
          * Example:
          * await queryInterface.dropTable('users');
          */
-        await queryInterface.dropTable('restaurants');
+        await queryInterface.dropTable('cuisine_types');
+
     }
 };

@@ -1,5 +1,23 @@
+'use strict';
+const {
+    Model
+} = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-    const Departement = sequelize.define('Departement', {
+    class Departement extends Model {
+        /**
+         * Helper method for defining associations.
+         * This method is not a part of Sequelize lifecycle.
+         * The `models/index` file will call this method automatically.
+         */
+        static associate(models) {
+            Departement.belongsTo(models.Country, {
+                foreignKey: 'CountryID',
+                as: 'country',
+            });
+        }
+    }
+    Departement.init({
         ID: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -14,15 +32,12 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
 
+    }, {
+        sequelize,
+        modelName: 'Departement',
+        tableName: 'departements',
     });
 
-    Departement.associate = (models) => {
-        // Association à la table des pays (countries)
-        Departement.belongsTo(models.Country, {
-            foreignKey: 'countryID',
-            as: 'country',
-        });
-    };
 
     return Departement;
 };
