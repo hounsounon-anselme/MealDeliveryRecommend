@@ -40,12 +40,12 @@ module.exports = {
 
             },
 
-            CountryPhoneCode: {
+            CountryCode: {
                 type: Sequelize.STRING, // Le type de données dépend de votre schéma de pays
                 allowNull: false,
                 references: {
                     model: 'countries', // Référence à la table des pays
-                    key: 'PhoneCode', // Clé primaire de la table des pays
+                    key: 'CountryCode', // Clé primaire de la table des pays
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',

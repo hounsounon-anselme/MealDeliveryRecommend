@@ -18,11 +18,12 @@ module.exports = {
             CountryCode: {
                 type: DataTypes.STRING,
                 allowNull: false,
+                unique: true,
+
             },
             PhoneCode: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
 
             },
             FlagURL: {

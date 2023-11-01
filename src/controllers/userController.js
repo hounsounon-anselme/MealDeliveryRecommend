@@ -1,15 +1,68 @@
-// userController.js
-const { User } = require('../models'); // Importez le modèle User depuis le fichier modèle
+const { User } = require('../models');
 
-// Exemple d'action pour la création d'un utilisateur
-const createUser = async(req, res) => {
+async function createUser(req, res) {
     try {
-        const user = await User.create(req.body);
-        res.status(201).json(user);
+        const newUser = await User.create(req.body);
+        res.status(201).json(newUser);
     } catch (error) {
-        console.error('Erreur lors de la création de l\'utilisateur :', error);
-        res.status(500).json({ message: 'Erreur lors de la création de l\'utilisateur' });
+        res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur.' });
     }
-};
+}
 
-module.exports = { createUser };
+async function getAllUsers(req, res) {
+    try {
+        const users = await User.findAll();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({ error: 'Erreur lors de la récupération des utilisateurs.' });
+    }
+}
+
+async function getUserById(req, res) {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).json({ error: 'Utilisateur non trouvé.' });
+            return;
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: 'Erreur lors de la récupération de l\'utilisateur.' });
+    }
+}
+
+async function updateUser(req, res) {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).json({ error: 'Utilisateur non trouvé.' });
+            return;
+        }
+        await user.update(req.body);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(400).json({ error: 'Erreur lors de la mise à jour de l\'utilisateur.' });
+    }
+}
+
+async function deleteUser(req, res) {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).json({ error: 'Utilisateur non trouvé.' });
+            return;
+        }
+        await user.destroy();
+        res.status(204).end();
+    } catch (error) {
+        res.status(400).json({ error: 'Erreur lors de la suppression de l\'utilisateur.' });
+    }
+}
+
+module.exports = {
+    createUser,
+    getAllUsers,
+    getUserById,
+    updateUser,
+    deleteUser,
+};

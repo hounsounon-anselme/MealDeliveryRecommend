@@ -18,11 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        CountryCode: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-        },
+
         PhoneCode: {
             type: DataTypes.STRING,
             allowNull: false,

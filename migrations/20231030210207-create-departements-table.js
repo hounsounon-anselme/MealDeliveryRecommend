@@ -20,12 +20,12 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
-            countryID: {
+            countryCode: {
                 type: Sequelize.STRING,
                 allowNull: false,
                 references: {
                     model: 'countries',
-                    key: 'PhoneCode',
+                    key: 'CountryCode',
                 },
                 onUpdate: 'CASCADE',
                 onDelete: 'CASCADE',
