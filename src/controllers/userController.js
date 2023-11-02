@@ -1,11 +1,13 @@
-const { User } = require('../models');
+const User = require('../../models/User.js');
+
 
 async function createUser(req, res) {
     try {
         const newUser = await User.create(req.body);
         res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json({ error: 'Erreur lors de la création de l\'utilisateur.' });
+        res.status(400).json({ error: error.message }); // Utilisez error.message pour afficher l'erreur réelle.
+
     }
 }
 
@@ -14,7 +16,7 @@ async function getAllUsers(req, res) {
         const users = await User.findAll();
         res.status(200).json(users);
     } catch (error) {
-        res.status(400).json({ error: 'Erreur lors de la récupération des utilisateurs.' });
+        res.status(400).json({ error: error.message });
     }
 }
 

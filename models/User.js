@@ -1,7 +1,8 @@
 'use strict';
+
 const {
     Model
-} = require('sequelize');
+} = require('../config/squeleze-config');
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         /**
@@ -10,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            User.belongsTo(models.Countries, {
-                foreignKey: 'CountryPhoneCode',
-                sourceKey: 'PhoneCode',
+            User.belongsTo(models.Country, {
+                foreignKey: 'CountryCode',
+                sourceKey: 'CountryCode',
             });
         }
     }
