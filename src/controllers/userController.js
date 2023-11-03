@@ -3,13 +3,19 @@ const User = require('../../models/User.js');
 
 async function createUser(req, res) {
     try {
+        const { firstName, lastName, username, CountryCode, email, password, phone } = req.body;
+
+        if (!firstName || !lastName || !username || !CountryCode || !email || !password || !phone) {
+            return res.status(400).json({ error: error.message });
+        }
+
         const newUser = await User.create(req.body);
         res.status(201).json(newUser);
     } catch (error) {
-        res.status(400).json({ error: error.message }); // Utilisez error.message pour afficher l'erreur réelle.
-
+        res.status(400).json({ error: error.message });
     }
 }
+
 
 async function getAllUsers(req, res) {
     try {

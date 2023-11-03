@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./src/routes/userRoutes');
+const bodyParser = require('body-parser'); // Vous pouvez utiliser bodyParser ou express.json()
+
+app.use(bodyParser.json());
 
 app.use('/api', userRoutes);
 

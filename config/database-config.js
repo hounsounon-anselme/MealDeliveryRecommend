@@ -1,5 +1,5 @@
 require('dotenv').config();
-const databaseConfig = {
+module.exports =  {
     development: {
         database: process.env.DB_NAME,
         username: process.env.DB_USER,
@@ -26,6 +26,4 @@ const databaseConfig = {
     },
 };
 
-module.exports = {
-    databaseConfig,
-};
+
