@@ -23,15 +23,6 @@ const User = sequelize.define('User', {
             unique: true,
         },
 
-        CountryCode: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            references: {
-                model: 'countries',
-                key: 'PhoneCode',
-            },
-        },
-
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -50,12 +41,12 @@ const User = sequelize.define('User', {
 
         createdAt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            defaultValue: DataTypes.NOW, 
         },
-        updatedAt: {
+         updatedAt: {
             type: DataTypes.DATE,
-            allowNull: false,
-        },
+            defaultValue: DataTypes.NOW, 
+        }
     }, {
         
         modelName: 'User',

@@ -29,7 +29,7 @@ sequelize
 //synchronisation
 sequelize.sync()
   .then(() => {
-    console.log('Base de données synchronisée.');
+    console.log('Base de données synchronisée avec succès.');
   })
   .catch(error => {
     console.error('Erreur lors de la synchronisation de la base de données :', error);

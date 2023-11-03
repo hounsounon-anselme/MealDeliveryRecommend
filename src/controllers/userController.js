@@ -1,4 +1,5 @@
 const User = require('../../models/User.js');
+const Country = require('../../models/Country.js');
 
 
 async function createUser(req, res) {
@@ -6,15 +7,29 @@ async function createUser(req, res) {
         const { firstName, lastName, username, CountryCode, email, password, phone } = req.body;
 
         if (!firstName || !lastName || !username || !CountryCode || !email || !password || !phone) {
-            return res.status(400).json({ error: error.message });
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        
+        const country = await Country.findOne({
+            attributes: ['PhoneCode'],
+            where: {
+                CountryCode: CountryCode
+            }
+        });
+        
+        if (!country) {
+            return res.status(400).json({ error: "Country not found" });
         }
 
-        const newUser = await User.create(req.body);
+        const completePhone = country.PhoneCode + ' ' + phone;
+
+        const newUser = await User.create({ firstName, lastName, username, email, password, phone: completePhone });
         res.status(201).json(newUser);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
+
 
 
 async function getAllUsers(req, res) {
