@@ -1,16 +1,41 @@
 const User = require('../../models/User.js');
+const Country = require('../../models/Country.js');
+
 
 
 async function createUser(req, res) {
     try {
-        const { firstName, lastName, username, CountryCode, email, password, phone } = req.body;
-
-        if (!firstName || !lastName || !username || !CountryCode || !email || !password || !phone) {
+        const { firstName, lastName, username, CountryCode, email, password } = req.body;
+        /* if (!firstName || !lastName || !username || !CountryCode || !email || !password) {
             return res.status(400).json({ error: error.message });
+
+
+        }*/
+
+        const country = Country.findOne({
+            attributes: ['PhoneCode'],
+            where: {
+                CountryCode: CountryCode
+            }
+
+        });
+
+        //const country = await Country.findOne({ where: { CountryCode: CountryCode } });
+
+        if (country) {
+            console.log(country);
+
+            const phone = country + ' ' + req.body.phone;
+
+            const newUser = await User.create({ firstName, lastName, username, email, password, phone });
+
+            res.status(201).json(newUser);
+        } else {
+            res.status(400).json({ error: 'Code de téléphone correspondant non trouvé' });
         }
 
-        const newUser = await User.create(req.body);
-        res.status(201).json(newUser);
+
+
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
