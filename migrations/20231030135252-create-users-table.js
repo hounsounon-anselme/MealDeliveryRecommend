@@ -40,6 +40,10 @@ module.exports = {
 
             },
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2240e17ae5193e7b8ae00b9e5c6f52b588733b59
             phone: {
                 type: Sequelize.STRING,
                 allowNull: false,
