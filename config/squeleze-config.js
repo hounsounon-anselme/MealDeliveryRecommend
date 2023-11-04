@@ -13,10 +13,10 @@ const sequelize = new Sequelize(
         dialect: config.dialect,
     }
 );
-console.log(process.env.NODE_ENV); // Affiche la valeur de NODE_ENV
+console.log(process.env.NODE_ENV);
 
 
-// Vérifiez la connexion à la base de données
+// la connexion à la base de données
 sequelize
     .authenticate()
     .then(() => {
@@ -25,14 +25,14 @@ sequelize
     .catch((err) => {
         console.error('Impossible de se connecter à la base de données:', err);
     });
-    
+
 //synchronisation
 sequelize.sync()
-  .then(() => {
-    console.log('Base de données synchronisée avec succès.');
-  })
-  .catch(error => {
-    console.error('Erreur lors de la synchronisation de la base de données :', error);
-  });
+    .then(() => {
+        console.log('Base de données synchronisée avec succès.');
+    })
+    .catch(error => {
+        console.error('Erreur lors de la synchronisation de la base de données :', error);
+    });
 
 module.exports = sequelize;
