@@ -1,13 +1,51 @@
 const User = require('../../models/User.js');
 const Country = require('../../models/Country.js');
+<<<<<<< HEAD
 const bcrypt = require('bcrypt');
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 2240e17ae5193e7b8ae00b9e5c6f52b588733b59
+
+>>>>>>> a30ee7bedabeffeb2477e4c2c966d90bd32b4aa7
 
 async function createUser(req, res) {
     try {
+<<<<<<< HEAD
+        const { firstName, lastName, username, CountryCode, email, password } = req.body;
+        /* if (!firstName || !lastName || !username || !CountryCode || !email || !password) {
+            return res.status(400).json({ error: error.message });
+
+
+        }*/
+
+        const country = Country.findOne({
+            attributes: ['PhoneCode'],
+            where: {
+                CountryCode: CountryCode
+            }
+
+        });
+
+        //const country = await Country.findOne({ where: { CountryCode: CountryCode } });
+
+        if (country) {
+            console.log(country);
+
+            const phone = country + ' ' + req.body.phone;
+
+            const newUser = await User.create({ firstName, lastName, username, email, password, phone });
+
+            res.status(201).json(newUser);
+        } else {
+            res.status(400).json({ error: 'Code de téléphone correspondant non trouvé' });
+=======
         const { firstName, lastName, username, CountryCode, email, password, phone } = req.body;
         //validation
         if (!firstName || !lastName || !username || !CountryCode || !email || !password || !phone) {
             return res.status(400).json({ error: "Missing required fields" });
+>>>>>>> 2240e17ae5193e7b8ae00b9e5c6f52b588733b59
         }
         //recuperation du codephone de codecountry entrer
         const country = await Country.findOne({
@@ -28,6 +66,7 @@ async function createUser(req, res) {
                 return res.status(500).json({ error: "Password hashing error" });
             }
 
+<<<<<<< HEAD
             try {
                 const newUser = await User.create({
                     firstName,
@@ -42,6 +81,15 @@ async function createUser(req, res) {
                 res.status(400).json({ error: error.message });
             }
         });
+=======
+<<<<<<< HEAD
+
+
+=======
+        const newUser = await User.create({ firstName, lastName, username, email, password, phone: completePhone });
+        res.status(201).json(newUser);
+>>>>>>> 2240e17ae5193e7b8ae00b9e5c6f52b588733b59
+>>>>>>> a30ee7bedabeffeb2477e4c2c966d90bd32b4aa7
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
