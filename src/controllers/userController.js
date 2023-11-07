@@ -2,6 +2,9 @@ const User = require('../../models/User.js');
 const Country = require('../../models/Country.js');
 const bcrypt = require('bcrypt');
 
+
+
+
 async function createUser(req, res) {
     try {
         const { firstName, lastName, username, CountryCode, email, password, phone } = req.body;
@@ -120,10 +123,21 @@ async function deleteUser(req, res) {
     }
 }
 
+async function getCountry(req, res) {
+    try {
+        const countries = await Country.findAll({ attributes: ['CountryName', 'PhoneCode', 'CountryCode', 'FlagURL'] });
+        res.json(countries);
+    } catch (error) {
+        console.error('Error while retrieving countries:', error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUser,
     deleteUser,
+    getCountry,
 };
