@@ -19,25 +19,43 @@ class CreateUserForm extends React.Component {
             firstName: '',
             lastName: '',
             username: '',
+            countryCode: '',
             CountryCode: '',
+
             email: '',
             password: '',
             phone: '',
             error: '',
             successMessage: '',
             countryOptions: [], 
-            countryCode: '', 
             passwordError: '', 
             repeatPassword:'',
         };
     }
+    customStyles = {
+      control: (base) => ({
+        ...base,
+        minHeight: 40, // Ajustez la hauteur du contrôle selon vos besoins
+      }),
+      indicatorSeparator: (base) => ({
+        ...base,
+        display: 'none', // Masque le séparateur entre l'indicateur de flèche et le libellé
+      }),
+      dropdownIndicator: (base) => ({
+        ...base,
+        transform: 'rotate(180deg)', // Tourne la flèche de sélection vers le haut
+      }),
+    };
+
 
     handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
+      const { name, value } = event.target;
+    
+      this.setState({
+        [name]: value,
+      });
+    };
+    
     componentDidMount() {
    axios.get('http://localhost:3000/api/countries') // Assurez-vous que l'URL est correcte
   .then((response) => {
@@ -52,7 +70,10 @@ class CreateUserForm extends React.Component {
   handleCountryCodeChange = (selectedOption) => {
     const { countryOptions } = this.state;
     const countryCode = selectedOption.value;
-  
+    const phoneCode = selectedOption.phoneCode;
+
+    
+
     // Recherchez le pays correspondant à la valeur sélectionnée
     const selectedCountry = countryOptions.find((country) => country.CountryCode === countryCode);
   
@@ -62,7 +83,7 @@ class CreateUserForm extends React.Component {
       // Vérifiez si l'URL de l'image est valide et si le format est pris en charge
       if (FlagURL && (FlagURL.endsWith('.png') || FlagURL.endsWith('.jpg') || FlagURL.endsWith('.gif'))) {
         // Mettez à jour le state avec les informations du pays
-        this.setState({ selectedCountry, countryCode });
+        this.setState({ selectedCountry, countryCode, phoneCode });
       } else {
         // Affichez un message d'erreur si l'URL de l'image n'est pas valide ou le format n'est pas pris en charge
         this.setState({ selectedCountry: null, countryCode: '' });
@@ -73,34 +94,67 @@ class CreateUserForm extends React.Component {
     }
   }
   
+  formatOptionLabel = ({ value, label }) => {
+    const country = this.state.countryOptions.find(country => country.CountryCode === value);
+  
+    if (country) {
+      const imageUrl = `http://localhost:3000/images/${country.FlagURL}`;
+      
+      return (
+        <div>
+          <img src={imageUrl} alt={country.CountryName}    style={{ width: '12px', height: 'auto' }}
+/>
+          <div>
+            <div style={{ whiteSpace: 'nowrap', fontSize: '12px' }}>{label}</div>
+          </div>
+        </div>
+      );
+    } else {
+      return label;
+    }
+  };
+
   
 
-
+  
+  
   handleSubmit = async (event) => {
-  event.preventDefault();
-  this.setState({
-    [event.target.name]: event.target.value,
-    passwordError: '', // Réinitialise l'erreur
-  });
-
-  // Vérifiez si les mots de passe correspondent
-  if (this.state.password !== this.state.repeatPassword) {
-    this.setState({ passwordError: 'Les mots de passe ne correspondent pas' });
-    return; // Empêche l'envoi de la demande si les mots de passe ne correspondent pas
-  }
-
-  try {
-    // Effectuez la demande d'inscription
-    const response = await axios.post('http://localhost:3000/api/users', this.state);
-    if (response.status === 200) {
-      this.setState({ successMessage: 'User created successfully' });
-      Swal.fire('Success', 'User created successfully', 'success');
+    event.preventDefault();
+    this.setState({
+      passwordError: '', // Réinitialise l'erreur
+    });
+  
+    // Vérifiez si les mots de passe correspondent
+    if (this.state.password !== this.state.repeatPassword) {
+      this.setState({ passwordError: 'Les mots de passe ne correspondent pas' });
+      return; // Empêche l'envoi de la demande si les mots de passe ne correspondent pas
     }
-  } catch (error) {
-    this.setState({ error: error.response.data.error });
-    Swal.fire('Error', 'An error occurred', 'error');
+  
+    try {
+      // Créez un objet avec les champs spécifiques que vous souhaitez envoyer
+      const userObject = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        username: this.state.username,
+        CountryCode: this.state.countryCode,
+        email: this.state.email,
+        password: this.state.password,
+        phone: this.state.phone,
+      };
+  
+      // Effectuez la demande d'inscription avec le nouvel objet
+      const response = await axios.post('http://localhost:3000/api/users', userObject);
+  
+      if (response.status === 200) {
+        this.setState({ successMessage: 'User created successfully' });
+        Swal.fire('Success', 'User created successfully', 'success');
+      }
+    } catch (error) {
+      this.setState({ error: error.response.data.error });
+      Swal.fire('Error', 'An error occurred', 'error');
+    }
   }
-}
+  
 
     render() {
         return (
@@ -123,7 +177,7 @@ class CreateUserForm extends React.Component {
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="Firt name" type="text" onChange={this.handleChange} />
+                        <input name="firstName" class="form-control" placeholder="Firt name" type="text" onChange={this.handleChange} />
                         
                     </div>
 
@@ -131,42 +185,46 @@ class CreateUserForm extends React.Component {
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="Last name" type="text" onChange={this.handleChange} />
+                        <input name="lastName" class="form-control" placeholder="Last name" type="text" onChange={this.handleChange} />
                     </div> 
 
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-user" style={{ color: 'blue' }}></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="Username" type="text" onChange={this.handleChange} />
+                        <input name="username" class="form-control" placeholder="Username" type="text" onChange={this.handleChange} />
                     </div> 
 
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                         </div>
-                        <input name="" class="form-control" placeholder="Email address" type="email"  onChange={this.handleChange}/>
+                        <input name="email" class="form-control" placeholder="Email address" type="email"  onChange={this.handleChange}/>
                     </div>
 
                     <div class="form-group input-group">
   <div class="input-group-prepend">
     <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
   </div>
-  <select
-    className="custom-select"
-    style={{ maxWidth: "120px" }}
-    onChange={this.handleCountryCodeChange}
-    value={this.state.selectedCountry}
-  >
-    {this.state.countryOptions.map((country) => (
-       <option key={country.CountryCode} value={country.CountryCode}>
-      {country.CountryName} - {country.PhoneCode} - <img src={`http://localhost:3000${country.FlagURL}`} alt="Flag" />
-    </option>
+  <Select 
+          className="custom-select"
+          value={this.state.selectedCountry}
+          onChange={this.handleCountryCodeChange}
+          options={this.state.countryOptions.map((country) => ({
+            label: `${country.CountryName} ${country.PhoneCode} `,
+            value: country.CountryCode,
+            phoneCode: country.PhoneCode,
+          }))}
+          formatOptionLabel={this.formatOptionLabel}
+          styles={this.customStyles}
+          menuPlacement="top"
+          
 
-    ))}
-  </select>
+
+        />
+        
   <input
-    name=""
+    name="phone"
     className="form-control"
     placeholder="Phone number"
     type="text"
@@ -179,7 +237,7 @@ class CreateUserForm extends React.Component {
     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
   </div>
   <input
-        class={`form-control ${!this.state.passwordError ? 'is-invalid' : ''}`}
+        
     placeholder="Create password"
     type="password"
     name="password"
@@ -191,7 +249,7 @@ class CreateUserForm extends React.Component {
     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
   </div>
   <input
-        class={`form-control ${!this.state.passwordError ? 'is-invalid' : ''}`}
+    
     placeholder="Repeat password"
     type="password"
     name="repeatPassword"

@@ -4,7 +4,7 @@ const { promisify } = require('util');
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        const filePath = 'public/uploads/data_pays.csv';
+        const filePath = 'public/uploads/data_countries.csv';
 
         const results = [];
 
