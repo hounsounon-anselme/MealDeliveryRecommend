@@ -145,6 +145,7 @@ class CreateUserForm extends React.Component {
                     </p>
 
                       <form onSubmit={this.handleSubmit}>
+                      
                         <div class="form-group input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -172,6 +173,8 @@ class CreateUserForm extends React.Component {
                             </div>
                             <input name="email" class="form-control" placeholder="Email address" type="email"  onChange={this.handleChange}/>
                         </div>
+
+                        
 
                         <div class="form-group input-group">
                             <div class="input-group-prepend">

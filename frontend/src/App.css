@@ -43,16 +43,6 @@
     /* Marge entre les deux champs */
 }
 
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
 .form-group {
     margin-bottom: 15px;
 }
@@ -136,4 +126,181 @@ button-container button:hover {
 
 .error {
     border: 1px solid red;
+}
+
+.logo {
+    width: 50px;
+    height: auto;
+}
+
+
+/* Ajoutez ces styles à votre fichier CSS ou SCSS */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #030303;
+    /* Couleur de fond du footer (remplacez-la par la couleur souhaitée) */
+    padding: 10px;
+    /* Espace intérieur du footer */
+    color: #ffffff;
+    /* Couleur du texte (remplacez-la par la couleur souhaitée) */
+}
+
+.footer a {
+    color: #ffffff;
+    /* Couleur des liens dans le footer (remplacez-la par la couleur souhaitée) */
+}
+
+
+/* Si vous souhaitez rendre le texte plus petit, ajustez la taille de police */
+
+.footer p,
+.footer h5,
+.footer ul {
+    font-size: 14px;
+    /* Taille de police (remplacez-la par la taille souhaitée) */
+}
+
+
+/* Si vous souhaitez centrer le texte dans la partie inférieure du footer */
+
+.text-center {
+    text-align: center;
+}
+
+
+/* Ajoutez ces styles si vous souhaitez réduire la hauteur du footer */
+
+.footer {
+    min-height: 50px;
+    /* Hauteur minimale du footer (ajustez-la selon vos besoins) */
+}
+
+
+/* Ajoutez ces styles si vous souhaitez que le footer ait une apparence plus compacte */
+
+.footer h5,
+.footer p {
+    margin-bottom: 0px;
+    /* Ajustez la marge inférieure selon vos préférences */
+}
+
+.footer ul li {
+    margin-bottom: 2px;
+    /* Ajustez la marge inférieure selon vos préférences */
+}
+
+
+/* NavBar.css */
+
+.navbar {
+    background-color: #343a40;
+    /* Couleur de fond de la barre de navigation */
+    padding: 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #ffffff;
+    /* Couleur du texte de la marque */
+    text-decoration: none;
+    /* Supprime le soulignement du lien */
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.navbar-toggler-icon {
+    color: #ffffff;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+
+/* Ajoutez ces styles à votre fichier NavBar.css */
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar-nav a {
+    color: #ffffff;
+    margin-right: 5px;
+    font-size: 1rem;
+    /* Ajustez la taille de la police du lien */
+    text-decoration: none;
+}
+
+
+/* Autres styles inchangés ... */
+
+.form-inline {
+    margin-right: 5px;
+}
+
+nav {
+    margin-right: 5px;
+}
+
+.form-control {
+    width: 300px;
+}
+
+.btn-outline-success {
+    color: #ffffff;
+    border-color: #28a745;
+    /* Couleur de la bordure du bouton de recherche */
+}
+
+.navbar-nav.ml-auto .nav-link {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.navbar-nav.ml-auto .nav-link svg {
+    margin-right: 8px;
+}
+
+
+/* Animation pour les liens de navigation */
+
+.navbar-nav a:hover,
+.navbar-nav.ml-auto .nav-link:hover {
+    color: #28a745;
+    /* Couleur au survol */
+}
+
+
+/* Animation pour le bouton de recherche */
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.maincontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.alert-danger {
+    margin-top: 10px;
 }

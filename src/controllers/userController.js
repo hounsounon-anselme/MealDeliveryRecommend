@@ -133,6 +133,30 @@ async function getCountry(req, res) {
     }
 }
 
+async function loginUser(req, res) {
+    try {
+        const { username, password } = req.body;
+
+        const user = await User.findOne({ where: { username } });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '1h' });
+
+            return res.status(200).json({ token });
+        } else {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
 module.exports = {
     createUser,
     getAllUsers,
@@ -140,4 +164,5 @@ module.exports = {
     updateUser,
     deleteUser,
     getCountry,
+    loginUser
 };
