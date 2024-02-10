@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Header from './Header';
+import Footer from './Footer';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -44,11 +46,14 @@ class LoginPage extends React.Component {
 
   render() {
     return (
+      <div className="dashboard-container">
+      <Header /> 
+		<div className='bod'>
       <div className="maincontainer">
         <div className="container">
           <div className="card bg-light">
             <article className="card-body mx-auto" style={{ maxWidth: '400px' }}>
-              <h4 className="card-title mt-3 text-center">Log In</h4>
+              <h3 className="card-title mt-3 text-center">Log in </h3>
               <form onSubmit={this.handleSubmit}>
                 {/* Add input fields for username and password */}
                 <div className="form-group input-group">
@@ -69,6 +74,7 @@ class LoginPage extends React.Component {
                     <span className="input-group-text"> <i className="fa fa-lock"></i> </span>
                   </div>
                   <input
+				    className="form-control"
                     placeholder="Password"
                     type="password"
                     name="password"
@@ -85,10 +91,15 @@ class LoginPage extends React.Component {
                     Log In
                   </button>
                 </div>
+				<p class="text-center">Haven't an account? Sign <a href="/sign">here</a> </p>
               </form>
             </article>
           </div>
+
         </div>
+      </div>
+	  </div>
+    <Footer /> 
       </div>
     );
   }

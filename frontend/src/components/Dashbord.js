@@ -1,13 +1,13 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as  Link } from 'react-router-dom';
 import { FaChartBar, FaCog, FaInfoCircle } from 'react-icons/fa';
-import Logo from './../images/privacy.png'; // Remplacez le chemin par le chemin réel de votre logo
 import Header from './Header';
 import Footer from './Footer';
 
 const Dashboard = () => {
   return (
       <div className="dashboard-container">
+      
 	  <Header /> 
         <aside className="sidebar">
           <ul className="nav-links">

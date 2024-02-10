@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css'; 
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Select from 'react-select';
@@ -130,56 +131,48 @@ class CreateUserForm extends React.Component {
 
   render() {
         return (
-            <div className="maincontainer">
-              <div className="container">
+          <div className="bod">
+
+
                 <div class="card bg-light">
-                  <article class="card-body mx-auto" style={{maxWidth: "400px"}}>
-                    <h4 class="card-title mt-3 text-center" >Create Account</h4>
+                  <article class="card-body mx-auto" style={{ maxWidth: "400px", padding: '0px' }}>
+                    <h4 class="card-title mt-3 text-center" style={{ marginBottom: '20px' }}>Create Account</h4>
                       <p class="text-center">Get started with your free account</p>
                     <p>
                       <a href="#" className="btn btn-block btn-twitter"  style={{ color: 'white'}}>
-                         <i className="fab fa-twitter twitter-icon"></i> Login via Twitter</a>                        <a href="#" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f" ></i>   Login via facebook</a>
+                         <i className="fab fa-twitter twitter-icon"></i> Login via Twitter
+                      </a> 
+                         <a href="#" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f" ></i>   Login via facebook</a>
                     </p>
                     <p class="divider-text">
                         <span class="bg-light">OR</span>
                     </p>
 
                       <form onSubmit={this.handleSubmit}>
-                      
-                        <div class="form-group input-group">
-                          <div class="input-group-prepend">
+                      <div className="form-row">
+
+                    <div class="form-group input-group">
                             <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                          </div>
-                          <input name="firstName" class="form-control" placeholder="Firt name" type="text" onChange={this.handleChange} />
+                          <input name="firstName" class="form-control" placeholder="First name" type="text" onChange={this.handleChange} />
                         </div>
 
-                        <div class="form-group input-group">
-                            <div class="input-group-prepend">
+                        <div class="form-group input-group" >
                                 <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                            </div>
                             <input name="lastName" class="form-control" placeholder="Last name" type="text" onChange={this.handleChange} />
                         </div> 
-
+                     </div>
                         <div class="form-group input-group">
-                            <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fas fa-user" style={{ color: 'blue' }}></i> </span>
-                            </div>
                             <input name="username" class="form-control" placeholder="Username" type="text" onChange={this.handleChange} />
-                        </div> 
+                            </div>
 
                         <div class="form-group input-group">
-                            <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                            </div>
                             <input name="email" class="form-control" placeholder="Email address" type="email"  onChange={this.handleChange}/>
                         </div>
 
-                        
-
                         <div class="form-group input-group">
-                            <div class="input-group-prepend">
                               <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                            </div>
                             <Select 
                               className="custom-select"
                               value={this.state.selectedCountry}
@@ -203,10 +196,9 @@ class CreateUserForm extends React.Component {
                         </div>
 
                         <div class="form-group input-group">
-                          <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                          </div>
-                          <input        
+                          <input  
+                            className="form-control"      
                             placeholder="Create password"
                             type="password"
                             name="password"
@@ -215,10 +207,9 @@ class CreateUserForm extends React.Component {
                         </div>
 
                         <div class="form-group input-group">
-                          <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                          </div>
                           <input
+                            className="form-control"
                             placeholder="Repeat password"
                             type="password"
                             name="repeatPassword"
@@ -232,7 +223,7 @@ class CreateUserForm extends React.Component {
                             Create Account
                           </button>
                         </div>  
-                        <p class="text-center">Have an account? <a href="#">Log In</a> </p>
+                        <p class="text-center">Have an account? <a href="/login">Log In</a> </p>
                     </form>
                     
                     {this.state.error && <p className="error">{this.state.error}</p>}
@@ -240,7 +231,7 @@ class CreateUserForm extends React.Component {
                   </article>
                 </div> 
               </div>
-            </div>
+
 
         );
     }
